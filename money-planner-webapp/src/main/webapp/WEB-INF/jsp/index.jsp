@@ -95,24 +95,26 @@ This main page consists of following sections:-
 				</div>
 
 				<div class="md-form">
-				  <input v-model="password" @focus="passwordInput = true" @blur="passwordInput = false" type="password" id="form-password" class="form-control password">
+				  <input v-model="password" @focus="passwordInput = true,showPassword = false" @blur="passwordInput = false,showPassword = ''" :type="showPassword ? 'text' : 'password'" id="form-password" class="form-control password">
 				  <span v-bind:class="{'floating-label-password-focus':(passwordInput === true || password.length != 0),'floating-label-password':(passwordInput === false && password.length == 0)}" >Password</span>
+           			 <button v-show="password.length > 0 && showPassword == false" v-on:click="showPassword=true" id="showPassword" class="show-eye" type="button"><i class="ion-eye"></i></button>
+           			 <button v-show="password.length > 0 && showPassword == true" v-on:click="showPassword=false" id="hidePassword" class="hide-eye" type="button" ><i class="ion-eye-disabled"></i></button>
+				  
 				  <span class="d-flex justify-content-end forgetPassword"> <a href="#" class="blue-text ml-1">Forgot Password?</a></span>
 				</div>
 
 				<div class="text-center mb-3">
-				  <button type="button" class="btn blue-gradient btn-block btn-rounded z-depth-1a">Sign in</button>
+				  <button type="button" class="btn blue-gradient btn-block btn-rounded">Sign in</button>
 				</div>
-				<p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> or Sign in
-				  with:</p>
+				<p class="font-small dark-grey-text pt-2"> or Sign in with:</p>
 
 				<div class="row my-3 d-flex justify-content-center">
 				  <!--Facebook-->
-				  <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a"><i class="fa fa-facebook text-center"></i></button>
+				  <button type="button" class="btn btn-white btn-rounded"><i class="fa fa-facebook text-center"></i></button>
 				  <!--Twitter-->
-				  <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a"><i class="fa fa-twitter"></i></button>
+				  <button type="button" class="btn btn-white btn-rounded"><i class="fa fa-twitter"></i></button>
 				  <!--Google +-->
-				  <button type="button" class="btn btn-white btn-rounded z-depth-1a"><i class="fa fa-google-plus"></i></button>
+				  <button type="button" class="btn btn-white btn-rounded"><i class="fa fa-google-plus"></i></button>
 				</div>
 			  </div>
 			  <!--Footer-->
@@ -750,6 +752,7 @@ This main page consists of following sections:-
       data: {
         emailInput: false,
 		passwordInput: false,
+		showPassword: '',
 		email:"",
 		password:""
       }
