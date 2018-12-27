@@ -1042,6 +1042,34 @@ body.mobile-nav-active #mobile-nav-toggle {
 a.waves-effect, a.waves-light {
   display: inline-block; 
 }
+.floating-label-name-focus{
+	position: relative;
+    top: -47px;
+    left: 15px;
+    display: block;
+    text-align: left;
+    font-size: 11px;
+}
+
+.form-control.name{
+  	padding: 15px;
+  	height: 50px;	
+}
+	
+.floating-label-name{
+	position: relative;
+    top: -38px;
+    left: 15px;
+    font-family: inherit;
+    font-size: 18px;
+    display: block;
+    text-align: left;
+    pointer-events: none;
+}
+ 
+.form-control.name.name-content{
+	padding-top: 22px;
+}
 .floating-label-email-focus{
 	position: relative;
     top: -47px;
@@ -1138,6 +1166,12 @@ span.forgetPassword{
     width: 92%;
     top: 175px;
 }
+.signUpOptions{
+	margin-top: 61px;
+    position: absolute;
+    width: 92%;
+    top: 175px;
+}
 a.blue-text{
     font-size: 0.8rem;
     font-weight: 400;
@@ -1161,24 +1195,45 @@ a.blue-text{
     margin-bottom: 0;
     line-height: 1.5;
 }
-.form-elegant .font-small {
+.form-elegant-signin .font-small {
     font-size: 0.8rem; 
     font-weight: 400;
 }
 
-.form-elegant{
+.form-elegant-signin{
 	min-height: 565px;
 }
 
-.form-elegant .modal-header {
+.form-elegant-signin .modal-header {
     border-bottom: none; }
 
-.modal-dialog .form-elegant .btn .fa {
+.modal-dialog .form-elegant-signin .btn .fa {
     color: #2196f3!important; }
 
-.form-elegant .modal-body, .form-elegant .modal-footer {
+.form-elegant-signin .modal-body, .form-elegant-signin .modal-footer {
     font-weight: 400; }
-    
+
+.form-elegant-signup .font-small {
+    font-size: 0.8rem; 
+    font-weight: 400;
+}
+
+.form-elegant-signup{
+	min-height: 565px;
+}
+
+.form-elegant-signup .modal-header {
+    border-bottom: none; 
+}
+
+.modal-dialog .form-elegant-signup .btn .fa {
+    color: #2196f3!important; 
+}
+
+.form-elegant-signup .modal-body, .form-elegant-signup .modal-footer {
+    font-weight: 400; 
+}
+ 
 .blue-gradient {
   background: -webkit-linear-gradient(50deg, #45cafc, #303f9f) !important;
   background: -o-linear-gradient(50deg, #45cafc, #303f9f) !important;
@@ -1243,4 +1298,12 @@ a.blue-text{
     position: relative;
     font-size: 20px;
     height: 66px;
+}
+.modal-open{
+	overflow: hidden;
+    padding-right: 0px !important;
+}
+.modal-open .modal{
+	overflow: hidden;
+    padding-right: 0px !important;
 }

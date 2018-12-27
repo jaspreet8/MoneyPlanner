@@ -75,10 +75,10 @@ This main page consists of following sections:-
       <a data-toggle="modal" data-target="#loginModal" href="javascript:void(0);" class="btn-login scrollto" >Sign In</a>
 	  <a data-toggle="modal" data-target="#signupModal" href="javascript:void(0);" class="btn-login scrollto" >Sign Up</a>
 	  <!-- Login modal -->
-		<div class="modal fade" id="loginModal" @blur="loginInfoVO.email='',loginInfoVO.password=''" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 			aria-hidden="true">
+		<div class="modal" id="loginModal" @focus="loginInfoVO.email='',loginInfoVO.password='',loginOptions.currentSection = 'signIn'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
 			<!--Content-->
-			<div v-show="loginOptions.currentSection == 'signIn'" class="modal-content form-elegant">
+			<div v-show="loginOptions.currentSection == 'signIn'" class="modal-content form-elegant-signin">
 			  <!--Header-->
 			  <div class="modal-header">
 				<h3 class="modal-title w-100" id="myModalLabel"><strong>Sign In</strong></h3>
@@ -124,11 +124,11 @@ This main page consists of following sections:-
 			  </div>
 			  <!--Footer-->
 			  <div class="modal-footer not-member">
-				<span class="font-small grey-text">Not a member? <a href="#" class="blue-text ml-1">
-					Sign Up</a></span>
+				<span class="font-small grey-text">Not a member? 
+				<a href="javascript:void(0);" data-dismiss="modal" data-toggle="modal" data-target="#signupModal" class="blue-text ml-1">Sign Up</a></span>
 			  </div>
 			</div>
-			<div v-show="loginOptions.currentSection == 'forgetPassword'" class="modal-content form-elegant">
+			<div v-show="loginOptions.currentSection == 'forgetPassword'" class="modal-content form-elegant-signin">
 				<!--Header-->
 				<div class="modal-header img-center">
 					<img class="reset-password-img" src="${contextPath}/resources/img/forgot-password.png"/>
@@ -142,7 +142,7 @@ This main page consists of following sections:-
 						<p class="reset-password-content"><span>Enter your email and we'll send you</span><span>a link to get back into your account.</span></p>
 					</div>
 					<div class="md-form">
-					  <input v-model="loginInfoVO.email" v-bind:class="{'email-content':loginInfoVO.email.length != 0}" type="text" id="form-email2" class="form-control  
+					  <input v-model="loginInfoVO.email" v-bind:class="{'email-content':loginInfoVO.email.length != 0}" type="text" id="form-email-forget" class="form-control  
 					  		email" >
 					  <span v-bind:class="{'floating-label-email-focus':(loginInfoVO.email.length != 0),'floating-label-email':(loginInfoVO.email.length == 0)}" >
 					  		Email address</span>
@@ -153,7 +153,7 @@ This main page consists of following sections:-
 						</div>
 						<p class="optional font-small dark-grey-text pt-2"> OR</p>
 						<div>
-						   <a href="javascript:void(0);" class="blue-text ml-1">Create New Account</a>
+						   <a href="javascript:void(0);" data-dismiss="modal" data-toggle="modal" data-target="#signupModal" class="blue-text ml-1">Create New Account</a>
 						</div>
 						<div class="back-signIn">
 						   <a href="javascript:void(0);" v-on:click="loginOptions.currentSection = 'signIn'">Back To Sign In</a>
@@ -168,59 +168,69 @@ This main page consists of following sections:-
 	  <!-- Login modal -->
 	  
 	  
-	   <!-- Login modal
-		<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	   <!-- SignUp modal -->
+	   <div class="modal" id="signupModal" @focus="loginInfoVO.email='',loginInfoVO.password='',loginInfoVO.name=''" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
-			Content
-			<div class="modal-content form-elegant">
-			  Header
-			  <div class="modal-header text-center">
-				<h3 class="modal-title w-100 dark-grey-text font-weight-bold" id="myModalLabel"><strong>Sign up</strong></h3>
+			<!--Content-->
+			<div class="modal-content form-elegant-signup">
+			  <!--Header-->
+			  <div class="modal-header">
+				<h3 class="modal-title w-100" id="myModalLabel1"><strong>Sign Up</strong></h3>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				  <span aria-hidden="true">&times;</span>
 				</button>
 			  </div>
-			  Body
+			  <!--Body-->
 			  <div class="modal-body mx-4">
-				Body
+				<!--Body-->
 				<div class="md-form">
-				  <input v-model="email" @focus="emailInput = true" @blur="emailInput = false" type="text" id="form-email" class="form-control email">
-				  <span v-bind:class="{'floating-label-email-focus':(emailInput === true || email.length != 0),'floating-label-email':(emailInput === false && email.length == 0)}" >Email address</span>
+				  <input v-model="loginInfoVO.name" v-bind:class="{'name-content':loginInfoVO.name.length != 0}" type="text" id="form-name-signup" class="form-control name" >
+				  <span v-bind:class="{'floating-label-name-focus':(loginInfoVO.name.length != 0),'floating-label-name':(loginInfoVO.name.length == 0)}" >
+				  		Name</span>
+				</div>
+				<div class="md-form">
+				  <input v-model="loginInfoVO.email" v-bind:class="{'email-content':loginInfoVO.email.length != 0}" type="text" id="form-email-signup" class="form-control email" >
+				  <span v-bind:class="{'floating-label-email-focus':(loginInfoVO.email.length != 0),'floating-label-email':(loginInfoVO.email.length == 0)}" >
+				  		Email address</span>
 				</div>
 
 				<div class="md-form">
-				  <input v-model="password" @focus="passwordInput = true,showPassword = false" @blur="passwordInput = false,showPassword = ''" :type="showPassword ? 'text' : 'password'" id="form-password" class="form-control password">
-				  <span v-bind:class="{'floating-label-password-focus':(passwordInput === true || password.length != 0),'floating-label-password':(passwordInput === false && password.length == 0)}" >Password</span>
-           			 <button v-show="password.length > 0 && showPassword == false" v-on:click="showPassword=true" id="showPassword" class="show-eye" type="button"><i class="ion-eye"></i></button>
-           			 <button v-show="password.length > 0 && showPassword == true" v-on:click="showPassword=false" id="hidePassword" class="hide-eye" type="button" ><i class="ion-eye-disabled"></i></button>
-				  
-				  <span class="d-flex justify-content-end forgetPassword"> <a href="#" class="blue-text ml-1">Forgot Password?</a></span>
+				  <input v-model="loginInfoVO.password" v-bind:class="{'password-content':loginInfoVO.password.length != 0}"  
+				  		:type="signupOptions.showPassword ? 'text' : 'password'" id="form-password-signup" class="form-control password">
+				  <span v-bind:class="{'floating-label-password-focus':loginInfoVO.password.length != 0,'floating-label-password':
+				  		loginInfoVO.password.length == 0}" >Password</span>
+				  		
+           			 <button v-show="loginInfoVO.password.length > 0 && signupOptions.showPassword == false" v-on:click="signupOptions.showPassword=true" id="showPassword" 						class="show-eye" type="button"><i class="ion-eye"></i></button>
+           			 <button v-show="loginInfoVO.password.length > 0 && signupOptions.showPassword == true" v-on:click="signupOptions.showPassword=false" id="hidePassword" 						class="hide-eye" type="button" ><i class="ion-eye-disabled"></i></button>
 				</div>
-
-				<div class="text-center mb-3">
-				  <button type="button" class="btn blue-gradient btn-block btn-rounded">Sign in</button>
-				</div>
-				<p class="font-small dark-grey-text pt-2"> or Sign in with:</p>
-
-				<div class="row my-3 d-flex justify-content-center">
-				  Facebook
-				  <button type="button" class="btn btn-white btn-rounded"><i class="fa fa-facebook text-center"></i></button>
-				  Twitter
-				  <button type="button" class="btn btn-white btn-rounded"><i class="fa fa-twitter"></i></button>
-				  Google +
-				  <button type="button" class="btn btn-white btn-rounded"><i class="fa fa-google-plus"></i></button>
+				
+				<div class="signUpOptions">
+					<div class="text-center">
+					  <button type="button" class="btn blue-gradient btn-block btn-rounded">SIGN UP</button>
+					</div>
+					<p class="font-small dark-grey-text pt-2"> or Sign up with:</p>
+	
+					<div class="row my-3 d-flex justify-content-center">
+					  <!--Facebook-->
+					  <button type="button" class="btn btn-white btn-rounded"><i class="fa fa-facebook text-center"></i></button>
+					  <!--Twitter-->
+					  <button type="button" class="btn btn-white btn-rounded"><i class="fa fa-twitter"></i></button>
+					  <!--Google +-->
+					  <button type="button" class="btn btn-white btn-rounded"><i class="fa fa-google-plus"></i></button>
+					</div>
 				</div>
 			  </div>
-			  Footer
-			  <div class="modal-footer mx-5 pt-3 mb-1">
-				<p class="font-small grey-text d-flex justify-content-end">Not a member? <a href="#" class="blue-text ml-1">
-					Sign Up</a></p>
+			  <!--Footer-->
+			  <div class="modal-footer not-member">
+				<span class="font-small grey-text">Already a member? 
+				<a href="javascript:void(0);" data-dismiss="modal" data-toggle="modal" data-target="#loginModal" class="blue-text ml-1">Sign In</a></span>
 			  </div>
 			</div>
-			/.Content
+			<!--Content-->
+			
 		  </div>
 		</div>
-	  SignUp modal -->
+	   <!-- SignUp modal -->
 	  
     </div>
 
@@ -286,14 +296,20 @@ This main page consists of following sections:-
 		loginInfoVO:{
 			email:"",
 			password:"",
-			firstName:"",
-			lastName:""
+			name:""
 		},
 		loginOptions:{
 			emailInput: false,
 			passwordInput: false,
 			showPassword: false,
-			currentSection: 'signIn',
+			currentSection: 'signIn',  //Possible values are signIn and forgetPassword
+			forgetPassword:'' //TODO
+		},
+		signupOptions:{
+			emailInput: false,
+			passwordInput: false,
+			showPassword: false,
+			currentSection: 'signIn',  //Possible values are signIn and forgetPassword
 			forgetPassword:'' //TODO
 		}
       },
