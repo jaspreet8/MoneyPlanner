@@ -16,7 +16,7 @@
 
         <div class="row">
           <div class="col-lg-6 about-img" data-aos="fade-right">
-            <img src="${contextPath}/resources/img/about-img.jpg" alt="">
+            <img src="<%= request.getContextPath() %>/resources/img/about-img.jpg" alt="">
           </div>
 
           <div class="col-lg-6 content" data-aos="fade-left">
@@ -53,7 +53,7 @@
           </div>
 
           <div class="col-lg-4 col-md-5 features-img">
-            <img src="${contextPath}/resources/img/product-features.png" alt="" data-aos="fade-right" data-aos-easing="ease-out-back">
+            <img src="<%= request.getContextPath() %>/resources/img/product-features.png" alt="" data-aos="fade-right" data-aos-easing="ease-out-back">
           </div>
 
           <div class="col-lg-8 col-md-7 ">
@@ -99,27 +99,27 @@
         <div class="row">
 
           <div class="col-md-2">
-            <img src="${contextPath}/resources/img/clients/client-1.png" alt=""  data-aos="fade-up">
+            <img src="<%= request.getContextPath() %>/resources/img/clients/client-1.png" alt=""  data-aos="fade-up">
           </div>
 
           <div class="col-md-2">
-            <img src="${contextPath}/resources/img/clients/client-2.png" alt=""  data-aos="fade-up">
+            <img src="<%= request.getContextPath() %>/resources/img/clients/client-2.png" alt=""  data-aos="fade-up">
           </div>
 
           <div class="col-md-2">
-            <img src="${contextPath}/resources/img/clients/client-3.png" alt=""  data-aos="fade-up">
+            <img src="<%= request.getContextPath() %>/resources/img/clients/client-3.png" alt=""  data-aos="fade-up">
           </div>
 
           <div class="col-md-2">
-            <img src="${contextPath}/resources/img/clients/client-4.png" alt=""  data-aos="fade-up">
+            <img src="<%= request.getContextPath() %>/resources/img/clients/client-4.png" alt=""  data-aos="fade-up">
           </div>
 
           <div class="col-md-2">
-            <img src="${contextPath}/resources/img/clients/client-5.png" alt=""  data-aos="fade-up">
+            <img src="<%= request.getContextPath() %>/resources/img/clients/client-5.png" alt=""  data-aos="fade-up">
           </div>
 
           <div class="col-md-2">
-            <img src="${contextPath}/resources/img/clients/client-6.png" alt=""  data-aos="fade-up">
+            <img src="<%= request.getContextPath() %>/resources/img/clients/client-6.png" alt=""  data-aos="fade-up">
           </div>
 
         </div>
@@ -139,7 +139,7 @@
         <div class="row" data-aos="fade-up">
           <div class="col-lg-12 col-md-6">
             <div class="member">
-              <div class="pic"><img src="${contextPath}/resources/img/jaspreet.jpg" alt=""></div>
+              <div class="pic"><img src="<%= request.getContextPath() %>/resources/img/jaspreet.jpg" alt=""></div>
               <h4>Jaspreet Singh Jolly</h4>
               <span></span>
               <div class="social">
@@ -169,48 +169,48 @@
 
           <div class="col-lg-4 col-md-6">
             <div class="gallery-item" data-aos="fade-up">
-              <a href="${contextPath}/resources/img/gallery/gallery-1.jpg" class="gallery-popup">
-                <img src="${contextPath}/resources/img/gallery/gallery-1.jpg" alt="">
+              <a href="<%= request.getContextPath() %>/resources/img/gallery/gallery-1.jpg" class="gallery-popup">
+                <img src="<%= request.getContextPath() %>/resources/img/gallery/gallery-1.jpg" alt="">
               </a>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6">
             <div class="gallery-item" data-aos="fade-up">
-              <a href="${contextPath}/resources/img/gallery/gallery-2.jpg" class="gallery-popup">
-                <img src="${contextPath}/resources/img/gallery/gallery-2.jpg" alt="">
+              <a href="<%= request.getContextPath() %>/resources/img/gallery/gallery-2.jpg" class="gallery-popup">
+                <img src="<%= request.getContextPath() %>/resources/img/gallery/gallery-2.jpg" alt="">
               </a>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6">
             <div class="gallery-item" data-aos="fade-up">
-              <a href="${contextPath}/resources/img/gallery/gallery-3.jpg" class="gallery-popup">
-                <img src="${contextPath}/resources/img/gallery/gallery-3.jpg" alt="">
+              <a href="<%= request.getContextPath() %>/resources/img/gallery/gallery-3.jpg" class="gallery-popup">
+                <img src="<%= request.getContextPath() %>/resources/img/gallery/gallery-3.jpg" alt="">
               </a>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6">
             <div class="gallery-item" data-aos="fade-up">
-              <a href="${contextPath}/resources/img/gallery/gallery-4.jpg" class="gallery-popup">
-                <img src="${contextPath}/resources/img/gallery/gallery-4.jpg" alt="">
+              <a href="<%= request.getContextPath() %>/resources/img/gallery/gallery-4.jpg" class="gallery-popup">
+                <img src="<%= request.getContextPath() %>/resources/img/gallery/gallery-4.jpg" alt="">
               </a>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6">
             <div class="gallery-item" data-aos="fade-up">
-              <a href="${contextPath}/resources/img/gallery/gallery-5.jpg" class="gallery-popup">
-                <img src="${contextPath}/resources/img/gallery/gallery-5.jpg" alt="">
+              <a href="<%= request.getContextPath() %>/resources/img/gallery/gallery-5.jpg" class="gallery-popup">
+                <img src="<%= request.getContextPath() %>/resources/img/gallery/gallery-5.jpg" alt="">
               </a>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6">
             <div class="gallery-item" data-aos="fade-up">
-              <a href="${contextPath}/resources/img/gallery/gallery-6.jpg" class="gallery-popup">
-                <img src="${contextPath}/resources/img/gallery/gallery-6.jpg" alt="">
+              <a href="<%= request.getContextPath() %>/resources/img/gallery/gallery-6.jpg" class="gallery-popup">
+                <img src="<%= request.getContextPath() %>/resources/img/gallery/gallery-6.jpg" alt="">
               </a>
             </div>
           </div>

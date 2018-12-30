@@ -9,7 +9,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  * @author jaspreet
  *
  */
-@SpringBootApplication
+@SpringBootApplication // Combination of @Configuration, @EnableAutoConfiguration, @ComponentScan
 public class MoneyPlannerWebApplication extends SpringBootServletInitializer {
 	
 	@Override
