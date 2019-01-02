@@ -36,6 +36,10 @@ public class UserDetailsServiceImpl implements UserDetailsService{
             }
         };
         grantedAuthorities.add(grantedAuthority);
-        return new org.springframework.security.core.userdetails.User(user.getEmailAddress(), user.getPassword(), grantedAuthorities);
+        if(user != null){
+        	return new org.springframework.security.core.userdetails.User(user.getEmailAddress(), user.getPassword(), grantedAuthorities);
+        }else{
+        	return new org.springframework.security.core.userdetails.User("dummy","dummy",grantedAuthorities);
+        }
     }
 }

@@ -87,28 +87,32 @@ This main page consists of following sections:-
 				</button>
 			  </div>
 			  <!--Body-->
-			  <div class="modal-body mx-4">
+			  <div data-vv-scope="loginScope" class="modal-body mx-4">
 				<!--Body-->
 				<div class="md-form">
-				  <input v-model="loginInfoDTO.email" v-bind:class="{'email-content':loginInfoDTO.email.length != 0}" type="text" id="form-email" class="form-control email" >
+				  <input v-validate="'required|email'" data-vv-name="Email Address" v-model="loginInfoDTO.email" 					
+				  v-bind:class="{'email-content':loginInfoDTO.email.length != 0,'is-invalid':loginOptions.submitted && errors.has('Email Address')}" type="text" 					
+				  id="form-email" class="form-control email" >
 				  <span v-bind:class="{'floating-label-email-focus':(loginInfoDTO.email.length != 0),'floating-label-email':(loginInfoDTO.email.length == 0)}" >
-				  		Email address</span>
+				  		Email Address</span>
+				  <span v-if="loginOptions.submitted && errors.has('Email Address')" class="text-danger signup-error">{{ errors.first('Email Address') }}</span>
 				</div>
 
 				<div class="md-form">
-				  <input v-model="loginInfoDTO.password" v-bind:class="{'password-content':loginInfoDTO.password.length != 0}"  
+				  <input v-validate="'required|min:8|max:32|verify_password'" data-vv-name="Password"  v-model="loginInfoDTO.password" 					
+				  		:class="{'password-content':loginInfoDTO.password.length !=0,'is-invalid':loginOptions.submitted && errors.has('Password')}"  
 				  		:type="loginOptions.showPassword ? 'text' : 'password'" id="form-password" class="form-control password">
 				  <span v-bind:class="{'floating-label-password-focus':loginInfoDTO.password.length != 0,'floating-label-password':
 				  		loginInfoDTO.password.length == 0}" >Password</span>
-				  		
-           			 <button v-show="loginInfoDTO.password.length > 0 && loginOptions.showPassword == false" v-on:click="loginOptions.showPassword=true" id="showPassword" 						class="show-eye" type="button"><i class="ion-eye"></i></button>
-           			 <button v-show="loginInfoDTO.password.length > 0 && loginOptions.showPassword == true" v-on:click="loginOptions.showPassword=false" id="hidePassword" 						class="hide-eye" type="button" ><i class="ion-eye-disabled"></i></button>
+				  	 <button v-show="loginInfoDTO.password.length > 0 && loginOptions.showPassword == false" v-on:click="loginOptions.showPassword = true" id="showPassword" 						class="show-eye" type="button"><i class="ion-eye"></i></button>
+           			 <button v-show="loginInfoDTO.password.length > 0 && loginOptions.showPassword == true" v-on:click="loginOptions.showPassword = false" id="hidePassword" 						class="hide-eye" type="button" ><i class="ion-eye-disabled"></i></button>
+           			 <div v-if="loginOptions.submitted && errors.has('Password')" class="text-danger signup-error">{{ errors.first('Password') }}</div>
 				</div>
-				
+				<div class="login-error" id="loginError"></div>
 				<span class="forgetPassword"><a href="javascript:void(0);" v-on:click="loginOptions.currentSection = 'forgetPassword'" class="blue-text">Forgot 					Password?</a></span>
 				<div class="signInOptions">
 					<div class="text-center">
-					  <button type="button" class="btn blue-gradient btn-block btn-rounded">SIGN IN</button>
+					  <button type="button" @click="completeLogin('loginScope')"class="btn blue-gradient btn-block btn-rounded">SIGN IN</button>
 					</div>
 					<p class="font-small dark-grey-text pt-2"> or Sign in with:</p>
 	
@@ -125,7 +129,7 @@ This main page consists of following sections:-
 			  <!--Footer-->
 			  <div class="modal-footer not-member">
 				<span class="font-small grey-text">Not a member? 
-				<a href="javascript:void(0);" @click="loginInfoDTO.email='',loginInfoDTO.password=''" data-dismiss="modal" data-toggle="modal" data-target="#signupModal" 					
+				<a href="javascript:void(0);" data-dismiss="modal" data-toggle="modal" data-target="#signupModal" 					
 					class="blue-text ml-1">Sign Up</a></span>
 			  </div>
 			</div>
@@ -185,50 +189,54 @@ This main page consists of following sections:-
 			  <div data-vv-scope="signupScope" class="modal-body mx-4">
 				<!--Body-->
 				<div class="md-form">
-				  <input v-validate="'required'" data-vv-name="Name" data-vv-delay=1000 v-model="loginInfoDTO.name" 					v-bind:class="{'name-content':loginInfoDTO.name.length != 0, 'is-invalid':errors.has('Name')}" type="text" 					
+				  <input v-validate="'required|max:32'" data-vv-name="Name" v-model="loginInfoDTO.name" 					
+				    v-bind:class="{'name-content':loginInfoDTO.name.length != 0, 'is-invalid':signupOptions.submitted && errors.has('Name')}" type="text" 					
 				  	id="form-name-signup" class="form-control name">
 				  <span v-bind:class="{'floating-label-name-focus':(loginInfoDTO.name.length != 0),'floating-label-name':(loginInfoDTO.name.length == 0)}" >
 				  		Name</span>
-				  <span v-if="errors.has('Name')" class="text-danger signup-error">{{ errors.first('Name') }}</span>
+				  <span v-if="signupOptions.submitted && errors.has('Name')" class="text-danger signup-error">{{ errors.first('Name') }}</span>
 				</div>
 				
 				<div class="md-form">
-				  <input v-validate="'required|email'" data-vv-name="Email Address" data-vv-delay=1000 v-model="loginInfoDTO.email" 					v-bind:class="{'email-content':loginInfoDTO.email.length != 0,'is-invalid':errors.has('Email Address')}" type="text" 					id="form-email-signup" class="form-control email" >
+				  <input v-validate="'required|email'" data-vv-name="Email Address" v-model="loginInfoDTO.email" 					
+				  v-bind:class="{'email-content':loginInfoDTO.email.length != 0,'is-invalid':signupOptions.submitted && errors.has('Email Address')}" type="text" 					
+				  id="form-email-signup" class="form-control email" >
 				  <span v-bind:class="{'floating-label-email-focus':(loginInfoDTO.email.length != 0),'floating-label-email':(loginInfoDTO.email.length == 0)}" >
 				  		Email Address</span>
-				  <span v-if="errors.has('Email Address')" class="text-danger signup-error">{{ errors.first('Email Address') }}</span>
+				  <span v-if="signupOptions.submitted && errors.has('Email Address')" class="text-danger signup-error">{{ errors.first('Email Address') }}</span>
 				</div>
 
 				<div class="md-form">
-				  <input v-validate="'required|min:8|verify_password'" data-vv-name="Password" data-vv-delay=1000 v-model="loginInfoDTO.password" 					:class="{'password-content':loginInfoDTO.password.length !=0,'is-invalid': errors.has('Password')}"  
+				  <input v-validate="'required|min:8|max:32|verify_password'" data-vv-name="Password" v-model="loginInfoDTO.password" 					
+				  		:class="{'password-content':loginInfoDTO.password.length !=0,'is-invalid': signupOptions.submitted && errors.has('Password')}"  
 				  		:type="signupOptions.showPassword ? 'text' : 'password'" id="form-password-signup" class="form-control password">
 				  <span v-bind:class="{'floating-label-password-focus':loginInfoDTO.password.length != 0,'floating-label-password':
 				  		loginInfoDTO.password.length == 0}" >Password</span>
 				  	 <button v-show="loginInfoDTO.password.length > 0 && signupOptions.showPassword == false" v-on:click="signupOptions.showPassword=true" id="showPassword" 						class="show-eye" type="button"><i class="ion-eye"></i></button>
            			 <button v-show="loginInfoDTO.password.length > 0 && signupOptions.showPassword == true" v-on:click="signupOptions.showPassword=false" id="hidePassword" 						class="hide-eye" type="button" ><i class="ion-eye-disabled"></i></button>
-           			 <div v-if="errors.has('Password')" class="text-danger signup-error">{{ errors.first('Password') }}</div>
+           			 <div v-if="signupOptions.submitted && errors.has('Password')" class="text-danger signup-error">{{ errors.first('Password') }}</div>
 				</div>
 				
 				<div class="signUpOptions">
 					<div class="text-center">
 					  <button type="button" @click="completeSignup('signupScope')" class="btn blue-gradient btn-block btn-rounded">SIGN UP</button>
 					</div>
-					<p class="font-small dark-grey-text pt-2"> or Sign up with:</p>
+					<!-- <p class="font-small dark-grey-text pt-2"> or Sign up with:</p>
 	
 					<div class="row d-flex justify-content-center">
-					  <!--Facebook-->
+					  Facebook
 					  <button type="button" class="btn btn-white btn-rounded social-button"><i class="fa fa-facebook text-center"></i></button>
-					  <!--Twitter-->
+					  Twitter
 					  <button type="button" class="btn btn-white btn-rounded social-button"><i class="fa fa-twitter"></i></button>
-					  <!--Google +-->
+					  Google +
 					  <button type="button" class="btn btn-white btn-rounded social-button"><i class="fa fa-google-plus"></i></button>
-					</div>
+					</div> -->
 				</div>
 			  </div>
 			  <!--Footer-->
 			  <div class="modal-footer not-member">
 				<span class="font-small grey-text">Already a member? 
-				<a href="javascript:void(0);" @click="loginInfoDTO.email='',loginInfoDTO.password='',loginInfoDTO.name=''" data-dismiss="modal" data-toggle="modal" 				data-target="#loginModal" class="blue-text ml-1">Sign In</a></span>
+				<a href="javascript:void(0);" data-dismiss="modal" data-toggle="modal" data-target="#loginModal" class="blue-text ml-1">Sign In</a></span>
 			  </div>
 			</div>
 			<!--Content-->
@@ -244,11 +252,9 @@ This main page consists of following sections:-
       <div class="product-screen-1" data-aos="fade-up" data-aos-delay="400">
         <img src="<%= request.getContextPath() %>/resources/img/product-screen-1.png" alt="">
       </div>
-
       <div class="product-screen-2" data-aos="fade-up" data-aos-delay="200">
         <img src="<%= request.getContextPath() %>/resources/img/product-screen-2.png" alt="">
       </div>
-
       <div class="product-screen-3" data-aos="fade-up">
         <img src="<%= request.getContextPath() %>/resources/img/product-screen-3.png" alt="">
       </div>
@@ -300,7 +306,20 @@ This main page consists of following sections:-
  	var logout = '${logout}';
  	var loginInfoDTO = '${loginInfoDTO}';
  	Vue.use(VeeValidate);
+
+ 	$(document).on('hidden.bs.modal','#loginModal', function () {
+		app.loginOptions.submitted = false;
+		app.loginInfoDTO.email='';
+		app.loginInfoDTO.password='';
+ 	});
  	
+ 	$(document).on('hidden.bs.modal','#signupModal', function () {
+		app.signupOptions.submitted = false;
+		app.loginInfoDTO.email='';
+		app.loginInfoDTO.password='';
+		app.loginInfoDTO.name='';
+		app.signupOptions.submitted=false;
+ 	});
     var app = new Vue({
       el: '#parent',
       data: {
@@ -310,29 +329,33 @@ This main page consists of following sections:-
 			name:""
 		},
 		loginOptions:{
-			emailInput: false,
-			passwordInput: false,
 			showPassword: false,
 			currentSection: 'signIn',  //Possible values are signIn and forgetPassword
 			forgetPassword:'', //TODO
+			submitted: false
 		},
 		signupOptions:{
-			emailInput: false,
-			passwordInput: false,
 			showPassword: false,
-			currentSection: 'signIn',  //Possible values are signIn and forgetPassword
-			forgetPassword:'', //TODO
+			submitted: false
 		}
       },
       methods: {
+    	  completeLogin: function(scope){
+    		  debugger;
+    		  var vm = this;
+    		  vm.loginOptions.submitted = true;
+              vm.$validator.validateAll(scope).then(valid => {
+                  if (valid) {
+                      postFormSubmit('/login',vm.loginInfoDTO);
+                  }
+              });
+    	  },    	  
     	  completeSignup: function(scope){
     		  var vm = this;
-              vm.$validator.validateAll().then(valid => {
+    		  vm.signupOptions.submitted = true;
+              vm.$validator.validateAll(scope).then(valid => {
                   if (valid) {
-                      alert('SUCCESS!!');
                       postFormSubmit('/registration',vm.loginInfoDTO);
-                  }else{
-                	  alert('FAIL!!');
                   }
               });
     	  }
@@ -343,10 +366,21 @@ This main page consists of following sections:-
  	}
     if(errors != '' && activeScreen != ''){
  		$('a#'+activeScreen).click();
- 		$.each(JSON.parse(errors), function( index, value ) {
- 			app.errors.add({field:value.field,msg:value.message,scope:null});
- 			console.log( value );
- 		});
+		if(activeScreen == 'signIn'){
+			app.loginOptions.submitted = true;
+			$("#loginError").addClass("show");
+			$("#loginError").append(errors);
+			setTimeout(function() { 
+				$("#loginError").removeClass("show"); 
+			}, 10000);
+			app.loginError = errors;
+		}else if(activeScreen == 'signUp'){
+			app.signupOptions.submitted = true;
+			$.each(JSON.parse(errors), function( index, value ) {
+				app.errors.add({field:value.field,msg:value.message,scope:null});
+			});
+		}
+ 		
  	}
  	
  	if(logout != ''){

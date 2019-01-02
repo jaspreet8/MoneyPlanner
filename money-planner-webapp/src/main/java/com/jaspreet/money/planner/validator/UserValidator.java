@@ -28,27 +28,23 @@ public class UserValidator {
     	//Name validation
     	if (user.getName() == null ||!StringUtils.hasText(user.getName())) {
 			errors.add(new ErrorResponseDTO("Name","The Name field is required."));
-		}
-    	if (user.getName().length() > 32) {
+		}else if (user.getName().length() > 32) {
         	errors.add(new ErrorResponseDTO("Name","The Name field must not be greater than 32 characters."));
         }
     	
     	//Email Address validation
     	if (user.getEmailAddress() == null ||!StringUtils.hasText(user.getEmailAddress())) {
 			errors.add(new ErrorResponseDTO("Email Address","The Email Address field is required."));
-		}
-    	if (!EmailValidator.getInstance().isValid(user.getEmailAddress()) ) {
+		}else if (!EmailValidator.getInstance().isValid(user.getEmailAddress()) ) {
 			errors.add(new ErrorResponseDTO("Email Address","The Email Address field must be a valid email."));
-		}
-    	if (userService.findByEmailAddress(user.getEmailAddress()) != null) {
+		}else if (userService.findByEmailAddress(user.getEmailAddress()) != null) {
             errors.add(new ErrorResponseDTO("Email Address","Another account is using "+user.getEmailAddress()));
         }
     	
     	//Password validation
     	if (user.getPassword() == null || !StringUtils.hasText(user.getPassword())) {
 			errors.add(new ErrorResponseDTO("Password","The Password field is required."));
-		}
-        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
+		}else if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
         	errors.add(new ErrorResponseDTO("Password","The Password field must be between 8-32 characters."));
         }
 

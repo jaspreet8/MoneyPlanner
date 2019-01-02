@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jaspreet.money.planner.dto.ErrorResponseDTO;
@@ -29,64 +30,65 @@ import com.jaspreet.money.planner.validator.UserValidator;
 public class LoginController {
 
 	@Autowired
-    private SecurityService securityService;
-	
-	@Autowired
-    private UserValidator userValidator;
-	
-	@Autowired
-    private UserService userService;
-	
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String getHomePage(Model model, HttpServletRequest request) {
-    	HttpSession session= request.getSession(false);
-        SecurityContextHolder.clearContext();
-        if(session != null) {
-            session.invalidate();
-        }
-        return "index";
-    }
-    
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registerUser(LoginInfoDTO loginInfoDTO,Model model) {
-    	User user = new User();
-    	DtoToEntity.convertLoginInfoVoToUser(loginInfoDTO, user);
-    	List<ErrorResponseDTO> errors = userValidator.validate(user);
+	private SecurityService securityService;
 
-        if (errors != null && !errors.isEmpty()) {
-        	ObjectMapper mapper = new ObjectMapper();
-        	String errorsJson = "",loginInfoDTOJson = "";
-    		try {
-    			errorsJson = mapper.writeValueAsString(errors);
-    			loginInfoDTOJson = mapper.writeValueAsString(loginInfoDTO);
-    		} catch (Exception e) {
-    			e.printStackTrace();
-    		}
-        	model.addAttribute("errors", errorsJson);
-        	model.addAttribute("activeScreen","signUp");
-        	model.addAttribute("loginInfoDTO", loginInfoDTOJson);
-            return "index";
-        }
-        userService.save(user);
-        securityService.loginUser(loginInfoDTO.getEmail(), loginInfoDTO.getPassword());
+	@Autowired
+	private UserValidator userValidator;
 
-        return "redirect:/dashboard";
-    }
-    
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(LoginInfoDTO loginInfoDTO,Model model, String logout) {
-        if (logout != null && "true".equals(logout)){
-        	model.addAttribute("logout", "You have been logged out successfully.");
-        	return "index";
-        }else{
-        	securityService.loginUser(loginInfoDTO.getEmail(), loginInfoDTO.getPassword());
-        	return "redirect:/dashboard";
-        }
-    }
-    
-    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public String getDashBoardPage() {
-        return "dashboard";
-    }
+	@Autowired
+	private UserService userService;
+
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String getHomePage(Model model, HttpServletRequest request,
+			@RequestParam(value = "error", required = false) String error,
+			@RequestParam(value = "logout", required = false) String logout) {
+
+		HttpSession session= request.getSession(false);
+		SecurityContextHolder.clearContext();
+		if(session != null) {
+			session.invalidate();
+		}
+
+		if (error != null && "true".equals(error)) {
+			model.addAttribute("errors", "Invalid username and password!");
+			model.addAttribute("activeScreen","signIn");
+		}
+		if (logout != null && "true".equals(logout)){
+			model.addAttribute("logout", "You have been logged out successfully.");
+		}
+
+		return "index";
+	}
+
+	@RequestMapping(value = "/registration", method = RequestMethod.POST)
+	public String registerUser(LoginInfoDTO loginInfoDTO,Model model) {
+		User user = new User();
+		DtoToEntity.convertLoginInfoVoToUser(loginInfoDTO, user);
+		List<ErrorResponseDTO> errors = userValidator.validate(user);
+
+		if (errors != null && !errors.isEmpty()) {
+			ObjectMapper mapper = new ObjectMapper();
+			String errorsJson = "",loginInfoDTOJson = "";
+			try {
+				errorsJson = mapper.writeValueAsString(errors);
+				loginInfoDTOJson = mapper.writeValueAsString(loginInfoDTO);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			model.addAttribute("errors", errorsJson);
+			model.addAttribute("activeScreen","signUp");
+			model.addAttribute("loginInfoDTO", loginInfoDTOJson);
+			return "index";
+		}
+		userService.save(user);
+		securityService.loginUser(loginInfoDTO.getEmail(), loginInfoDTO.getPassword());
+
+		return "redirect:/dashboard";
+	}
+
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	public String getDashBoardPage() {
+		return "dashboard";
+	}
 
 }

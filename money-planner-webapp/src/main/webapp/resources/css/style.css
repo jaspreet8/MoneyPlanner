@@ -1079,7 +1079,7 @@ a.waves-effect, a.waves-light {
 }
 
 .form-control.email{
-  	padding: 15px;
+  	padding-left: 15px;
   	height: 50px;	
 }
 	
@@ -1107,7 +1107,7 @@ a.waves-effect, a.waves-light {
 }
 
 .form-control.password{
-	padding: 15px;	
+	padding-left: 15px;	
 	height: 50px;	
 }
 
@@ -1128,10 +1128,11 @@ a.waves-effect, a.waves-light {
 .show-eye{
     position: relative;
     top: -50px;
+    right: 8px;
     display: block;
     zoom: 1.5;
     background-color: transparent;
-    width: 23px;
+    width: 16px;
     border: transparent;
     float: right;
 }
@@ -1139,9 +1140,10 @@ a.waves-effect, a.waves-light {
 .hide-eye{
 	position: relative;
     top: -50px;
+    right: 8px;
     zoom: 1.5;
     background-color: transparent;
-    width: 23px;
+    width: 16px;
     display: block;
     border: transparent;
     float: right;
@@ -1155,9 +1157,10 @@ a.waves-effect, a.waves-light {
 	outline: none; 
 }
 span.forgetPassword{
-	position: absolute;
-    top: 144px;
-    right: 17px;
+	position: relative;
+    top: -20px;
+    display: block;
+    text-align: right;
 }
 .signInOptions{
 	margin-top: 31px;
@@ -1166,7 +1169,10 @@ span.forgetPassword{
     top: 175px;
 }
 .signUpOptions{
-    position: relative;
+	position: relative;
+    display: block;
+    width: 90%;
+    margin: 16px;
 }
 a.blue-text{
     font-size: 0.8rem;
@@ -1220,7 +1226,7 @@ a.blue-text{
 }
 
 .form-elegant-signup{
-	min-height: 565px;
+	min-height: 550px;
 }
 
 .form-elegant-signup .modal-header {
@@ -1341,3 +1347,15 @@ a.blue-text{
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
+.login-error{
+	display: none;
+}
+
+.login-error.show{
+	display: block;
+	position: absolute;
+	left: 100px;
+	color: red;
+	padding: 7px;
+    font-size: 17px;
+}
