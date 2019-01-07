@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jaspreet.money.planner.dao.RoleRepository;
 import com.jaspreet.money.planner.dto.ErrorResponseDTO;
 import com.jaspreet.money.planner.dto.LoginInfoDTO;
 import com.jaspreet.money.planner.entity.User;
@@ -37,6 +38,9 @@ public class LoginController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RoleRepository roleRepository;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getHomePage(Model model, HttpServletRequest request,
@@ -50,7 +54,7 @@ public class LoginController {
 		}
 
 		if (error != null && "true".equals(error)) {
-			model.addAttribute("errors", "Invalid username and password!");
+			model.addAttribute("errors", "Invalid username or password!");
 			model.addAttribute("activeScreen","signIn");
 		}
 		if (logout != null && "true".equals(logout)){
@@ -61,7 +65,7 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public String registerUser(LoginInfoDTO loginInfoDTO,Model model) {
+	public String registerUser(LoginInfoDTO loginInfoDTO,Model model,HttpServletRequest request) {
 		User user = new User();
 		DtoToEntity.convertLoginInfoVoToUser(loginInfoDTO, user);
 		List<ErrorResponseDTO> errors = userValidator.validate(user);
@@ -80,9 +84,9 @@ public class LoginController {
 			model.addAttribute("loginInfoDTO", loginInfoDTOJson);
 			return "index";
 		}
-		userService.save(user);
-		securityService.loginUser(loginInfoDTO.getEmail(), loginInfoDTO.getPassword());
-
+		user.setRole(roleRepository.findByName("ROLE_USER"));
+		user = userService.save(user);
+		securityService.loginUser(loginInfoDTO.getEmail(), loginInfoDTO.getPassword(), user.getRole(), request);
 		return "redirect:/dashboard";
 	}
 

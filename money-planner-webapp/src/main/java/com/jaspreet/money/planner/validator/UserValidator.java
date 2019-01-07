@@ -37,7 +37,7 @@ public class UserValidator {
 			errors.add(new ErrorResponseDTO("Email Address","The Email Address field is required."));
 		}else if (!EmailValidator.getInstance().isValid(user.getEmailAddress()) ) {
 			errors.add(new ErrorResponseDTO("Email Address","The Email Address field must be a valid email."));
-		}else if (userService.findByEmailAddress(user.getEmailAddress()) != null) {
+		}else if (userService.findByEmailAddressAndEnabled(user.getEmailAddress(),true) != null) {
             errors.add(new ErrorResponseDTO("Email Address","Another account is using "+user.getEmailAddress()));
         }
     	

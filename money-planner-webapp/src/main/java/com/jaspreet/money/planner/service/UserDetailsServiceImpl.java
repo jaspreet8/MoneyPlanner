@@ -25,8 +25,11 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String emailAddress) throws UsernameNotFoundException {
-        User user = userRepository.findByEmailAddress(emailAddress);
-
+        User user = userRepository.findByEmailAddressAndEnabled(emailAddress,true);
+        
+        if(user == null){
+        	throw new UsernameNotFoundException("No user found for email : "+emailAddress);
+        }
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
         GrantedAuthority grantedAuthority = (GrantedAuthority)new GrantedAuthority() {
             private static final long serialVersionUID = 1L;
@@ -36,10 +39,6 @@ public class UserDetailsServiceImpl implements UserDetailsService{
             }
         };
         grantedAuthorities.add(grantedAuthority);
-        if(user != null){
-        	return new org.springframework.security.core.userdetails.User(user.getEmailAddress(), user.getPassword(), grantedAuthorities);
-        }else{
-        	return new org.springframework.security.core.userdetails.User("dummy","dummy",grantedAuthorities);
-        }
+        return new org.springframework.security.core.userdetails.User(user.getEmailAddress(), user.getPassword(), grantedAuthorities);
     }
 }

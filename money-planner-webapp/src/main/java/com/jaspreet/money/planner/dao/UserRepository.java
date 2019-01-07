@@ -10,6 +10,6 @@ import com.jaspreet.money.planner.entity.User;
  */
 public interface UserRepository extends JpaRepository<User, Long> {
 	
-    public User findByEmailAddress(String emailAddress);
+    public User findByEmailAddressAndEnabled(String emailAddress,boolean enabled);
 
 }

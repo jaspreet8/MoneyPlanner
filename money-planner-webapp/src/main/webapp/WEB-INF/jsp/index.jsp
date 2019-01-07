@@ -118,7 +118,7 @@ This main page consists of following sections:-
 	
 					<div class="row my-3 d-flex justify-content-center">
 					  <!--Facebook-->
-					  <button type="button" class="btn btn-white btn-rounded social-button"><i class="fa fa-facebook text-center"></i></button>
+					  <button type="button" onclick="location.href='${pageContext.request.contextPath}/social/facebookLogin'" class="btn btn-white btn-rounded social-button"><i class="fa fa-facebook text-center"></i></button>
 					  <!--Twitter-->
 					  <button type="button" class="btn btn-white btn-rounded social-button"><i class="fa fa-twitter"></i></button>
 					  <!--Google +-->
@@ -341,7 +341,6 @@ This main page consists of following sections:-
       },
       methods: {
     	  completeLogin: function(scope){
-    		  debugger;
     		  var vm = this;
     		  vm.loginOptions.submitted = true;
               vm.$validator.validateAll(scope).then(valid => {
