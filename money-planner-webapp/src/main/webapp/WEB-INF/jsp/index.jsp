@@ -90,23 +90,23 @@ This main page consists of following sections:-
 			  <div data-vv-scope="loginScope" class="modal-body mx-4">
 				<!--Body-->
 				<div class="md-form">
-				  <input v-validate="'required|email'" data-vv-name="Email Address" v-model="loginInfoDTO.email" 					
-				  v-bind:class="{'email-content':loginInfoDTO.email.length != 0,'is-invalid':loginOptions.submitted && errors.has('Email Address')}" type="text" 					
+				  <input v-validate="'required|email'" data-vv-name="Email Address" v-model="loginInfoDTO.email" data-vv-scope="loginScope"				
+				  v-bind:class="{'email-content':loginInfoDTO.email.length != 0,'is-invalid':loginOptions.submitted && errors.has('loginScope.Email Address')}" type="text" 					
 				  id="form-email" class="form-control email" >
 				  <span v-bind:class="{'floating-label-email-focus':(loginInfoDTO.email.length != 0),'floating-label-email':(loginInfoDTO.email.length == 0)}" >
 				  		Email Address</span>
-				  <span v-if="loginOptions.submitted && errors.has('Email Address')" class="text-danger signup-error">{{ errors.first('Email Address') }}</span>
+				  <span v-if="loginOptions.submitted && errors.has('loginScope.Email Address')" class="text-danger signup-error">{{ errors.first('loginScope.Email Address') }}</span>
 				</div>
 
 				<div class="md-form">
-				  <input v-validate="'required|min:8|max:32|verify_password'" data-vv-name="Password"  v-model="loginInfoDTO.password" 					
-				  		:class="{'password-content':loginInfoDTO.password.length !=0,'is-invalid':loginOptions.submitted && errors.has('Password')}"  
+				  <input v-validate="'required|min:8|max:32|verify_password'" data-vv-name="Password"  v-model="loginInfoDTO.password" data-vv-scope="loginScope"				
+				  		:class="{'password-content':loginInfoDTO.password.length !=0,'is-invalid':loginOptions.submitted && errors.has('loginScope.Password')}"  
 				  		:type="loginOptions.showPassword ? 'text' : 'password'" id="form-password" class="form-control password">
 				  <span v-bind:class="{'floating-label-password-focus':loginInfoDTO.password.length != 0,'floating-label-password':
 				  		loginInfoDTO.password.length == 0}" >Password</span>
 				  	 <button v-show="loginInfoDTO.password.length > 0 && loginOptions.showPassword == false" v-on:click="loginOptions.showPassword = true" id="showPassword" 						class="show-eye" type="button"><i class="ion-eye"></i></button>
            			 <button v-show="loginInfoDTO.password.length > 0 && loginOptions.showPassword == true" v-on:click="loginOptions.showPassword = false" id="hidePassword" 						class="hide-eye" type="button" ><i class="ion-eye-disabled"></i></button>
-           			 <div v-if="loginOptions.submitted && errors.has('Password')" class="text-danger signup-error">{{ errors.first('Password') }}</div>
+           			 <div v-if="loginOptions.submitted && errors.has('loginScope.Password')" class="text-danger signup-error">{{ errors.first('loginScope.Password') }}</div>
 				</div>
 				<div class="login-error" id="loginError"></div>
 				<span class="forgetPassword"><a href="javascript:void(0);" v-on:click="loginOptions.currentSection = 'forgetPassword'" class="blue-text">Forgot 					Password?</a></span>
@@ -122,7 +122,7 @@ This main page consists of following sections:-
 					  <!--Twitter-->
 					  <button type="button" class="btn btn-white btn-rounded social-button"><i class="fa fa-twitter"></i></button>
 					  <!--Google +-->
-					  <button type="button" class="btn btn-white btn-rounded social-button"><i class="fa fa-google-plus"></i></button>
+					  <button type="button" onclick="location.href='${pageContext.request.contextPath}/social/googleLogin'" class="btn btn-white btn-rounded social-button"><i class="fa fa-google-plus"></i></button>
 					</div>
 				</div>
 			  </div>
@@ -189,32 +189,32 @@ This main page consists of following sections:-
 			  <div data-vv-scope="signupScope" class="modal-body mx-4">
 				<!--Body-->
 				<div class="md-form">
-				  <input v-validate="'required|max:32'" data-vv-name="Name" v-model="loginInfoDTO.name" 					
-				    v-bind:class="{'name-content':loginInfoDTO.name.length != 0, 'is-invalid':signupOptions.submitted && errors.has('Name')}" type="text" 					
+				  <input v-validate="'required|max:32'" data-vv-name="Name" v-model="loginInfoDTO.name" data-vv-scope="signupScope"					
+				    v-bind:class="{'name-content':loginInfoDTO.name.length != 0, 'is-invalid':signupOptions.submitted && errors.has('signupScope.Name')}" type="text" 					
 				  	id="form-name-signup" class="form-control name">
 				  <span v-bind:class="{'floating-label-name-focus':(loginInfoDTO.name.length != 0),'floating-label-name':(loginInfoDTO.name.length == 0)}" >
 				  		Name</span>
-				  <span v-if="signupOptions.submitted && errors.has('Name')" class="text-danger signup-error">{{ errors.first('Name') }}</span>
+				  <span v-if="signupOptions.submitted && errors.has('signupScope.Name')" class="text-danger signup-error">{{ errors.first('signupScope.Name') }}</span>
 				</div>
 				
 				<div class="md-form">
-				  <input v-validate="'required|email'" data-vv-name="Email Address" v-model="loginInfoDTO.email" 					
-				  v-bind:class="{'email-content':loginInfoDTO.email.length != 0,'is-invalid':signupOptions.submitted && errors.has('Email Address')}" type="text" 					
+				  <input v-validate="'required|email'" data-vv-name="Email Address" v-model="loginInfoDTO.email" data-vv-scope="signupScope"					
+				  v-bind:class="{'email-content':loginInfoDTO.email.length != 0,'is-invalid':signupOptions.submitted && errors.has('signupScope.Email Address')}" type="text" 					
 				  id="form-email-signup" class="form-control email" >
 				  <span v-bind:class="{'floating-label-email-focus':(loginInfoDTO.email.length != 0),'floating-label-email':(loginInfoDTO.email.length == 0)}" >
 				  		Email Address</span>
-				  <span v-if="signupOptions.submitted && errors.has('Email Address')" class="text-danger signup-error">{{ errors.first('Email Address') }}</span>
+				  <span v-if="signupOptions.submitted && errors.has('signupScope.Email Address')" class="text-danger signup-error">{{ errors.first('signupScope.Email Address') }}</span>
 				</div>
 
 				<div class="md-form">
-				  <input v-validate="'required|min:8|max:32|verify_password'" data-vv-name="Password" v-model="loginInfoDTO.password" 					
-				  		:class="{'password-content':loginInfoDTO.password.length !=0,'is-invalid': signupOptions.submitted && errors.has('Password')}"  
+				  <input v-validate="'required|min:8|max:32|verify_password'" data-vv-name="Password" v-model="loginInfoDTO.password" data-vv-scope="signupScope"					
+				  		:class="{'password-content':loginInfoDTO.password.length !=0,'is-invalid': signupOptions.submitted && errors.has('signupScope.Password')}"  
 				  		:type="signupOptions.showPassword ? 'text' : 'password'" id="form-password-signup" class="form-control password">
 				  <span v-bind:class="{'floating-label-password-focus':loginInfoDTO.password.length != 0,'floating-label-password':
 				  		loginInfoDTO.password.length == 0}" >Password</span>
 				  	 <button v-show="loginInfoDTO.password.length > 0 && signupOptions.showPassword == false" v-on:click="signupOptions.showPassword=true" id="showPassword" 						class="show-eye" type="button"><i class="ion-eye"></i></button>
            			 <button v-show="loginInfoDTO.password.length > 0 && signupOptions.showPassword == true" v-on:click="signupOptions.showPassword=false" id="hidePassword" 						class="hide-eye" type="button" ><i class="ion-eye-disabled"></i></button>
-           			 <div v-if="signupOptions.submitted && errors.has('Password')" class="text-danger signup-error">{{ errors.first('Password') }}</div>
+           			 <div v-if="signupOptions.submitted && errors.has('signupScope.Password')" class="text-danger signup-error">{{ errors.first('signupScope.Password') }}</div>
 				</div>
 				
 				<div class="signUpOptions">
@@ -376,7 +376,7 @@ This main page consists of following sections:-
 		}else if(activeScreen == 'signUp'){
 			app.signupOptions.submitted = true;
 			$.each(JSON.parse(errors), function( index, value ) {
-				app.errors.add({field:value.field,msg:value.message,scope:null});
+				app.errors.add({field:value.field,msg:value.message,scope:'signupScope'});
 			});
 		}
  		
