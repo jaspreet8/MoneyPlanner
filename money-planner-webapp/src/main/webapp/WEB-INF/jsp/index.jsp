@@ -120,7 +120,7 @@ This main page consists of following sections:-
 					  <!--Facebook-->
 					  <button type="button" onclick="location.href='${pageContext.request.contextPath}/social/facebookLogin'" class="btn btn-white btn-rounded social-button"><i class="fa fa-facebook text-center"></i></button>
 					  <!--Twitter-->
-					  <button type="button" class="btn btn-white btn-rounded social-button"><i class="fa fa-twitter"></i></button>
+					  <button type="button" onclick="location.href='${pageContext.request.contextPath}/social/linkedInLogin'" class="btn btn-white btn-rounded social-button"><i class="fa fa-linkedin"></i></button>
 					  <!--Google +-->
 					  <button type="button" onclick="location.href='${pageContext.request.contextPath}/social/googleLogin'" class="btn btn-white btn-rounded social-button"><i class="fa fa-google-plus"></i></button>
 					</div>
