@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		 http
          	.authorizeRequests()
-	            .antMatchers("/", "/resources/**","/registration","/social/**").permitAll()
+	            .antMatchers("/", "/resources/**","/registration","/social/**","/h2-console/**").permitAll()
 	            .anyRequest().authenticated()
             .and()
             	.formLogin()
@@ -48,6 +48,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutUrl("/logout")
 	        	.logoutSuccessUrl("/?logout=true")
 	        	.permitAll()
+	        .and()
+	        	.headers().frameOptions().disable()
 	        .and()
 	        	.csrf().disable();
 	}
