@@ -13,5 +13,7 @@ public interface UserService {
     public User findByEmailAddressAndEnabled(String emailAddress, boolean enabled);
 
 	public void update(User user);
+	
+	public void updatePassword(String password, Long userId);
     
 }

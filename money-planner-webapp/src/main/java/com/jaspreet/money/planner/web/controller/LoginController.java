@@ -65,7 +65,7 @@ public class LoginController {
 		return "index";
 	}
 
-	@RequestMapping(value = "/registration", method = RequestMethod.POST)
+	@RequestMapping(value = "/web/registration", method = RequestMethod.POST)
 	public String registerUser(LoginInfoDTO loginInfoDTO,Model model,HttpServletRequest request) {
 		User user = new User();
 		DtoToEntity.convertLoginInfoVoToUser(loginInfoDTO, user);

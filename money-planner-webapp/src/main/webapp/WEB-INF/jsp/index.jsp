@@ -104,12 +104,14 @@ This main page consists of following sections:-
 				  		:type="loginOptions.showPassword ? 'text' : 'password'" id="form-password" class="form-control password">
 				  <span v-bind:class="{'floating-label-password-focus':loginInfoDTO.password.length != 0,'floating-label-password':
 				  		loginInfoDTO.password.length == 0}" >Password</span>
-				  	 <button v-show="loginInfoDTO.password.length > 0 && loginOptions.showPassword == false" v-on:click="loginOptions.showPassword = true" id="showPassword" 						class="show-eye" type="button"><i class="ion-eye"></i></button>
-           			 <button v-show="loginInfoDTO.password.length > 0 && loginOptions.showPassword == true" v-on:click="loginOptions.showPassword = false" id="hidePassword" 						class="hide-eye" type="button" ><i class="ion-eye-disabled"></i></button>
+				  	 <button v-show="loginInfoDTO.password.length > 0 && loginOptions.showPassword == false" v-on:click="loginOptions.showPassword = true" id="showPassword" 						
+				  	 class="show-eye" type="button"><i class="ion-eye"></i></button>
+           			 <button v-show="loginInfoDTO.password.length > 0 && loginOptions.showPassword == true" v-on:click="loginOptions.showPassword = false" id="hidePassword" 
+           			 class="hide-eye" type="button" ><i class="ion-eye-disabled"></i></button>
            			 <div v-if="loginOptions.submitted && errors.has('loginScope.Password')" class="text-danger signup-error">{{ errors.first('loginScope.Password') }}</div>
 				</div>
 				<div class="login-error" id="loginError"></div>
-				<span class="forgetPassword"><a href="javascript:void(0);" v-on:click="loginOptions.currentSection = 'forgetPassword'" class="blue-text">Forgot 					Password?</a></span>
+				<span class="forgetPassword"><a href="javascript:void(0);" v-on:click="loginOptions.currentSection = 'forgetPassword'" class="blue-text">Forgot Password?</a></span>
 				<div class="signInOptions">
 					<div class="text-center">
 					  <button type="button" @click="completeLogin('loginScope')"class="btn blue-gradient btn-block btn-rounded">SIGN IN</button>
@@ -118,11 +120,14 @@ This main page consists of following sections:-
 	
 					<div class="row my-3 d-flex justify-content-center">
 					  <!--Facebook-->
-					  <button type="button" onclick="location.href='${pageContext.request.contextPath}/social/facebookLogin'" class="btn btn-white btn-rounded social-button"><i class="fa fa-facebook text-center"></i></button>
+					  <button type="button" onclick="location.href='${pageContext.request.contextPath}/social/facebookLogin'" class="btn btn-white btn-rounded social-button">
+					  <i class="fa fa-facebook text-center"></i></button>
 					  <!--Twitter-->
-					  <button type="button" onclick="location.href='${pageContext.request.contextPath}/social/linkedInLogin'" class="btn btn-white btn-rounded social-button"><i class="fa fa-linkedin"></i></button>
+					  <button type="button" onclick="location.href='${pageContext.request.contextPath}/social/linkedInLogin'" class="btn btn-white btn-rounded social-button">
+					  <i class="fa fa-linkedin"></i></button>
 					  <!--Google +-->
-					  <button type="button" onclick="location.href='${pageContext.request.contextPath}/social/googleLogin'" class="btn btn-white btn-rounded social-button"><i class="fa fa-google-plus"></i></button>
+					  <button type="button" onclick="location.href='${pageContext.request.contextPath}/social/googleLogin'" class="btn btn-white btn-rounded social-button">
+					  <i class="fa fa-google-plus"></i></button>
 					</div>
 				</div>
 			  </div>
@@ -144,17 +149,21 @@ This main page consists of following sections:-
 				<div class="modal-body mx-4">
 					<div>
 						<h3>Trouble Signing In?</h3>
-						<p class="reset-password-content"><span>Enter your email and we'll send you</span><span>a link to get back into your account.</span></p>
+						<p class="reset-password-content"><span>Enter your email and we'll send you</span><span>a link to reset your password.</span></p>
 					</div>
 					<div class="md-form">
-					  <input v-model="loginInfoDTO.email" v-bind:class="{'email-content':loginInfoDTO.email.length != 0}" type="text" id="form-email-forget" class="form-control  
-					  		email" >
+					  <input v-validate="'required|email'" data-vv-name="Email Address" v-model="loginInfoDTO.email" data-vv-scope="forgetPasswordScope"				
+					  v-bind:class="{'email-content':loginInfoDTO.email.length != 0,'is-invalid':loginOptions.submitted && errors.has('forgetPasswordScope.Email Address')}" type="text" 					
+					  id="form-email-reset" class="form-control email" >
 					  <span v-bind:class="{'floating-label-email-focus':(loginInfoDTO.email.length != 0),'floating-label-email':(loginInfoDTO.email.length == 0)}" >
-					  		Email address</span>
+					  		Email Address</span>
+					  <span v-if="loginOptions.submitted && errors.has('forgetPasswordScope.Email Address')" class="text-danger signup-error">{{ errors.first('forgetPasswordScope.Email Address') }}</span>
+					  <span v-if="loginOptions.passwordReset" class="reset-password-success">You've successfully requested a new password reset!</span> 
 					</div>
-					<div class="signInOptions">
+					<div class="resetPasswordOptions">
 						<div class="text-center">
-						  <button type="button" class="btn blue-gradient btn-block btn-rounded">Send SignIn Link</button>
+						 <button type="button" @click="sendPasswordResetLink('forgetPasswordScope')" class="btn blue-gradient btn-block btn-rounded">Reset Password</button>
+						 <!--  <button type="button" class="btn blue-gradient btn-block btn-rounded">Send SignIn Link</button> -->
 						</div>
 						<p class="optional font-small dark-grey-text pt-2"> OR</p>
 						<div>
@@ -212,8 +221,10 @@ This main page consists of following sections:-
 				  		:type="signupOptions.showPassword ? 'text' : 'password'" id="form-password-signup" class="form-control password">
 				  <span v-bind:class="{'floating-label-password-focus':loginInfoDTO.password.length != 0,'floating-label-password':
 				  		loginInfoDTO.password.length == 0}" >Password</span>
-				  	 <button v-show="loginInfoDTO.password.length > 0 && signupOptions.showPassword == false" v-on:click="signupOptions.showPassword=true" id="showPassword" 						class="show-eye" type="button"><i class="ion-eye"></i></button>
-           			 <button v-show="loginInfoDTO.password.length > 0 && signupOptions.showPassword == true" v-on:click="signupOptions.showPassword=false" id="hidePassword" 						class="hide-eye" type="button" ><i class="ion-eye-disabled"></i></button>
+				  	 <button v-show="loginInfoDTO.password.length > 0 && signupOptions.showPassword == false" v-on:click="signupOptions.showPassword=true" id="showPassword" 						
+				  	 class="show-eye" type="button"><i class="ion-eye"></i></button>
+           			 <button v-show="loginInfoDTO.password.length > 0 && signupOptions.showPassword == true" v-on:click="signupOptions.showPassword=false" id="hidePassword" 						
+           			 class="hide-eye" type="button" ><i class="ion-eye-disabled"></i></button>
            			 <div v-if="signupOptions.submitted && errors.has('signupScope.Password')" class="text-danger signup-error">{{ errors.first('signupScope.Password') }}</div>
 				</div>
 				
@@ -332,7 +343,8 @@ This main page consists of following sections:-
 			showPassword: false,
 			currentSection: 'signIn',  //Possible values are signIn and forgetPassword
 			forgetPassword:'', //TODO
-			submitted: false
+			submitted: false,
+			passwordReset: false
 		},
 		signupOptions:{
 			showPassword: false,
@@ -354,7 +366,30 @@ This main page consists of following sections:-
     		  vm.signupOptions.submitted = true;
               vm.$validator.validateAll(scope).then(valid => {
                   if (valid) {
-                      postFormSubmit('/registration',vm.loginInfoDTO);
+                      postFormSubmit('/web/registration',vm.loginInfoDTO);
+                  }
+              });
+    	  },
+    	  sendPasswordResetLink: function(scope){
+    		  var vm = this;
+    		  vm.loginOptions.submitted = true;
+              vm.$validator.validateAll(scope).then(valid => {
+                  if (valid) {
+                	  $.ajax({
+                		  type: "POST",                		  
+                		  url: "/web/forgetPassword?email="+vm.loginInfoDTO.email,
+                		  success: function(){
+                			  vm.loginOptions.passwordReset = true;
+                		  },
+                	   	  error: function(response){
+                	   		  if(response.responseJSON.field != null){
+                     	   	  		vm.errors.add({field:response.responseJSON.field,msg:response.responseJSON.message,scope:'forgetPasswordScope'});
+                	   		  }else{
+                	   			showErrorSnackbar(response.responseJSON.message);
+                	   		  }
+                	   		  
+                	   	  }
+                		});
                   }
               });
     	  }

@@ -1163,16 +1163,17 @@ span.forgetPassword{
     text-align: right;
 }
 .signInOptions{
-	margin-top: 31px;
-    position: absolute;
-    width: 92%;
-    top: 175px;
+    position: relative;
 }
 .signUpOptions{
 	position: relative;
     display: block;
     width: 90%;
     margin: 16px;
+}
+.resetPasswordOptions {
+    position: relative;
+    width: 99%;
 }
 a.blue-text{
     font-size: 0.8rem;
@@ -1204,7 +1205,7 @@ a.blue-text{
 }
 
 .form-elegant-signin{
-	min-height: 565px;
+	min-height: 546px;
 }
 .md-form{
 	position: relative;
@@ -1274,6 +1275,14 @@ a.blue-text{
 .reset-password-content span{
 	display: block;
 }
+.reset-password-success{
+	font-size: 14px;
+    top: -16px;
+    color: #1dc9ce;
+    width: 100%;
+    display: block;
+    position: relative;
+}
 .modal-header.img-center{
 	padding-left: 213px;
 }	
@@ -1290,10 +1299,11 @@ a.blue-text{
 	padding: 18px;
     font-size: 20px;
     background-color: #f0f0e4;
-    width: 120%;
-    position: relative;
+    width: 120.5%;
+    position: absolute;
     left: -40px;
-    bottom: -41px;
+    bottom: -90px;
+    border-radius: 4px;
 }
 .back-signIn a{
 	color: #9e9e9e !important;
@@ -1326,7 +1336,6 @@ a.blue-text{
 	margin: 1rem;
 }
 .snackbar {
-	visibility: hidden;
     min-width: 250px;
     margin-left: -125px;
     background-color: #5d5d5c;
@@ -1339,9 +1348,28 @@ a.blue-text{
     left: 50%;
     top: 540px;
     font-size: 15px;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
-.snackbar.show {
+.snackbar.error {
+    min-width: 250px;
+    background-color: navajowhite;
+    color: red;
+    text-align: center; 
+    border-radius: 14px;
+    padding: 16px;
+    position: fixed;
+    z-index: 9999;
+    top: 35px;
+	right: 10%;
+    left: 88%;
+    font-size: 16px;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+.snackbar.show.error{
   visibility: visible;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
@@ -1353,9 +1381,61 @@ a.blue-text{
 
 .login-error.show{
 	display: block;
-	position: absolute;
-	left: 100px;
-	color: red;
-	padding: 7px;
-    font-size: 17px;
+    position: absolute;
+    left: 120px;
+    color: red;
+    font-size: 15px;
+}
+
+#reset-password-header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 997;
+  background: linear-gradient(45deg, #1de099, #1dc8cd);
+  padding: 20px 0;
+  height: 72px;
+  transition: all 0.5s;
+}
+
+/* .reset-password-header{
+    position: fixed;
+    left: 0;
+    padding: 20px 0;
+    height: 72px;
+    top: 0;
+    right: 0;
+    transition: all 0.5s;
+    z-index: 997;
+    background: linear-gradient(45deg, #1de099, #1dc8cd);
+} */
+#reset-password-header #logo {
+  float: left;
+}
+
+#reset-password-header #logo h1 {
+  font-size: 36px;
+  margin: -4px 0 0 0;
+  padding: 0;
+  line-height: 1;
+  display: inline-block;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+#reset-password-header #logo h1 a, #header #logo h1 a:hover {
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  #reset-password-header #logo h1 {
+    font-size: 28px;
+    margin-top: 0;
+  }
+}
+.container-fluid.reset{
+    padding-top: 8%;
 }
