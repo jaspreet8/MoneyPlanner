@@ -3,10 +3,10 @@ package com.jaspreet.money.planner.validator;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import com.jaspreet.money.planner.dto.ErrorResponseDTO;
 import com.jaspreet.money.planner.entity.User;
@@ -26,14 +26,14 @@ public class UserValidator {
     	List<ErrorResponseDTO> errors = new ArrayList<>();
     	
     	//Name validation
-    	if (user.getName() == null ||!StringUtils.hasText(user.getName())) {
+    	if (StringUtils.isBlank(user.getName())) {
 			errors.add(new ErrorResponseDTO("Name","The Name field is required."));
 		}else if (user.getName().length() > 32) {
         	errors.add(new ErrorResponseDTO("Name","The Name field must not be greater than 32 characters."));
         }
     	
     	//Email Address validation
-    	if (user.getEmailAddress() == null ||!StringUtils.hasText(user.getEmailAddress())) {
+    	if (StringUtils.isBlank(user.getEmailAddress())) {
 			errors.add(new ErrorResponseDTO("Email Address","The Email Address field is required."));
 		}else if (!EmailValidator.getInstance().isValid(user.getEmailAddress()) ) {
 			errors.add(new ErrorResponseDTO("Email Address","The Email Address field must be a valid email."));
@@ -42,7 +42,7 @@ public class UserValidator {
         }
     	
     	//Password validation
-    	if (user.getPassword() == null || !StringUtils.hasText(user.getPassword())) {
+    	if (StringUtils.isBlank(user.getPassword())) {
 			errors.add(new ErrorResponseDTO("Password","The Password field is required."));
 		}else if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
         	errors.add(new ErrorResponseDTO("Password","The Password field must be between 8-32 characters."));

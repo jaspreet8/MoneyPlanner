@@ -22,6 +22,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
     private UserDetailsService userDetailsService;
 
+	@Autowired
+	private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+	
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -31,13 +34,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		 http
          	.authorizeRequests()
-	            .antMatchers("/", "/resources/**","/registration","/social/**","/h2-console/**").permitAll()
+	            .antMatchers("/", "/resources/**","/web/**","/social/**","/h2-console/**").permitAll()
 	            .anyRequest().authenticated()
             .and()
             	.formLogin()
             	.loginPage("/")
 				.loginProcessingUrl("/login")
-				.defaultSuccessUrl("/dashboard")
+				.successHandler(customAuthenticationSuccessHandler)
 				.failureUrl("/?error=true")
 				.usernameParameter("email")
 				.passwordParameter("password")
