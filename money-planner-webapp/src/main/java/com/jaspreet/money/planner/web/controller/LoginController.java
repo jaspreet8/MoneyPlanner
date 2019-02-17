@@ -1,5 +1,6 @@
 package com.jaspreet.money.planner.web.controller;
 
+import java.time.Instant;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -85,6 +86,7 @@ public class LoginController {
 			return "index";
 		}
 		user.setRole(roleRepository.findByName("ROLE_USER"));
+		user.setLastLogin(Instant.now());
 		user = userService.save(user);
 		securityService.loginUser(loginInfoDTO.getEmail(), loginInfoDTO.getPassword(), user.getRole(), request);
 		return "redirect:/dashboard";

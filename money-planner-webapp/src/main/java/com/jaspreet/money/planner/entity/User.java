@@ -1,10 +1,14 @@
 package com.jaspreet.money.planner.entity;
 
+import java.time.Instant;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Data;
 
@@ -25,6 +29,8 @@ public class User {
     private boolean enabled;
     @ManyToOne
     private Role role;
-
+    @CreationTimestamp
+    private Instant createdOn;
+    private Instant lastLogin;
     
 }

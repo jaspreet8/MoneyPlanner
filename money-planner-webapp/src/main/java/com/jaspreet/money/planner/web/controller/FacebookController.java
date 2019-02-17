@@ -1,5 +1,7 @@
 package com.jaspreet.money.planner.web.controller;
 
+import java.time.Instant;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +62,7 @@ public class FacebookController {
 		Role role = null;
 		if(dbUser != null){
 			dbUser.setName(user.getFirstName()+(StringUtils.hasText(user.getLastName()) ? " "+user.getLastName() : ""));
+			dbUser.setLastLogin(Instant.now());
 			userService.update(dbUser);
 			role = dbUser.getRole();
 		}else{
@@ -68,6 +71,7 @@ public class FacebookController {
 			newUser.setName(user.getFirstName()+(StringUtils.hasText(user.getLastName()) ? " "+user.getLastName() : ""));
 			role = roleRepository.findByName("ROLE_USER");
 			newUser.setRole(role);
+			newUser.setLastLogin(Instant.now());
 			userService.save(newUser);
 		}
 		

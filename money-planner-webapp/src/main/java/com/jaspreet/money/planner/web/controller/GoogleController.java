@@ -1,5 +1,7 @@
 package com.jaspreet.money.planner.web.controller;
 
+import java.time.Instant;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +63,7 @@ public class GoogleController {
 		Role role = null;
 		if(dbUser != null){
 			dbUser.setName(user.getGivenName()+(StringUtils.hasText(user.getFamilyName()) ? " "+user.getFamilyName() : ""));
+			dbUser.setLastLogin(Instant.now());
 			userService.update(dbUser);
 			role = dbUser.getRole();
 		}else{
@@ -69,6 +72,7 @@ public class GoogleController {
 			newUser.setName(user.getGivenName()+(StringUtils.hasText(user.getFamilyName()) ? " "+user.getFamilyName() : ""));
 			role = roleRepository.findByName("ROLE_USER");
 			newUser.setRole(role);
+			newUser.setLastLogin(Instant.now());
 			userService.save(newUser);
 		}
 		
