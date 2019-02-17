@@ -24,11 +24,23 @@ function showSnackbar(message) {
 	var message = document.createTextNode(message); 
 	iDiv.appendChild(message); 
 	iDiv.id = 'snackbar';
-	iDiv.className = 'snackbar show';
+	iDiv.className = 'snackbar';
 	document.body.appendChild(iDiv);
 	setTimeout(function(){ 
 		$('body').find('div.snackbar').remove();
 	}, 4000);
+}
+
+function showErrorSnackbar(message) {
+	var iDiv = document.createElement('div');
+	var message = document.createTextNode(message); 
+	iDiv.appendChild(message); 
+	iDiv.id = 'snackbar';
+	iDiv.className = 'snackbar error';
+	document.body.appendChild(iDiv);
+	setTimeout(function(){ 
+		$('body').find('div.snackbar').remove();
+	}, 8000);
 }
 
 VeeValidate.Validator.extend('verify_password', {
