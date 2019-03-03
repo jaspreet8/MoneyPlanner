@@ -1439,3 +1439,7 @@ a.blue-text{
 .container-fluid.reset{
     padding-top: 8%;
 }
+
+.clear{
+	clear: both;
+}

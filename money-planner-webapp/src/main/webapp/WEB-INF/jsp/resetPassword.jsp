@@ -29,8 +29,8 @@
                   <img class="reset-password-img" src="<%= request.getContextPath() %>/resources/img/forgot-password.png"/>
                </div>
                <h2 class="text-center mt-4">Reset Password</h2>
-               <p>Enter your new password here.</p>
                <div v-if="currentSection == 'resetPassword'" class="panel-body">
+              	  <p>Enter your new password here.</p>
                   <input v-validate="'required|min:8|max:32|verify_password'" data-vv-name="New Password"  v-model="newPassword" data-vv-scope="resetScope"	ref="newPassword"			
                      :class="{'password-content':newPassword.length !=0,'is-invalid':submitted && errors.has('resetScope.New Password')}" tabindex="1" autofocus 
                      :type="showNewPassword ? 'text' : 'password'" id="form-password" class="form-control password">
@@ -53,10 +53,10 @@
                      <button type="button" @click="resetPassword('resetScope')"class="btn blue-gradient btn-block btn-rounded" tabindex="3">Reset Password</button>
                   </div>
                </div>
-               <div v-if="currentSection == 'resetPasswordSuccess'" >
-               	Password has been reset successfully.
-               	Please login with new password.
-               	 <button type="button" click="<%= request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() %>" class="btn blue-gradient btn-block btn-rounded" tabindex="3">Reset Password</button>
+               <div v-if="currentSection == 'resetPasswordSuccess'" class="mt-4">
+               	<p class="clear mb-1">Password has been reset successfully.</p>
+               	<p class="clear mb-2">Please login with new password.</p>
+               	 <button type="button" onclick=<%= "window.open('"+request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()+"',\'_self')" %> class="btn blue-gradient btn-block btn-rounded" tabindex="3">Go To Login Page</button>
                </div>
             </div>
          </div>
@@ -78,12 +78,11 @@ var app = new Vue({
 		confirmPassword:"",
 		showNewPassword: false,
 		showConfirmPassword: false,
-		currentSection: 'resetPassword',  //Possible values are signIn and forgetPassword
+		currentSection: 'resetPassword',  //Possible values are resetPassword and resetPasswordSuccess
 		submitted: false,
     },
     methods: {
     	resetPassword: function(scope){
-	debugger;    		
   		  var vm = this;
   		  vm.submitted = true;
             vm.$validator.validateAll(scope).then(valid => {
@@ -93,7 +92,6 @@ var app = new Vue({
                	    	confirmPassword : vm.confirmPassword,
                	    	resetToken : resetToken
                    	};            	
-                	
                 	 $.ajax({
                		  type: "POST",                		  
                		  url: "/web/resetPassword",

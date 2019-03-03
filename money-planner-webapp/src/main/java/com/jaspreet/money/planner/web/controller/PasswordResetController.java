@@ -102,6 +102,7 @@ public class PasswordResetController {
 
 	@PostMapping("/resetPassword")
 	@Transactional
+	@ResponseBody
 	public void handlePasswordReset(@RequestBody PasswordResetDTO passwordResetDTO) {
 		if (StringUtils.isBlank(passwordResetDTO.getNewPassword())) {
 			throw new MoneyPlannerValidationException("New Password","The New Password field is required.");
